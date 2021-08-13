@@ -1,0 +1,38 @@
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+        - env:
+            - name: LOGGER_LEVEL
+              value: "INFO"
+            - name: TZ
+              value: "America/Mexico_City"
+          name: artifact-demo
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+            - containerPort: 9779
+              name: prometheus
+              protocol: TCP
+            - containerPort: 8778
+              name: jolokia
+              protocol: TCP
+            - containerPort: 8081
+              name: actuator
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 300m
+              memory: 300Mi
+            limits:
+              cpu: 300m
+              memory: 300Mi
+          volumeMounts:
+            - mountPath: /deployments/config
+              name: cm-mount
+      volumes:
+        - name: cm-mount
+          configMap:
+            name: rest-api-demo-cm

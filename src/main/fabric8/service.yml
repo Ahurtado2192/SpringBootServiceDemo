@@ -1,0 +1,6 @@
+spec:
+    ports:
+    - name: rest-artifact
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
